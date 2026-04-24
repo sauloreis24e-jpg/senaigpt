@@ -1,2 +1,211 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+* text=auto<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>SENAI-GPT</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* HEADER */
+.header {
+    background: #c4122f;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* HOME */
+.home {
+    text-align: center;
+    margin-top: 80px;
+}
+
+/* CHAT */
+.chat {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.chat-box {
+    width: 100%;
+    max-width: 700px;
+    padding: 15px;
+}
+
+/* MENSAGENS */
+.msg {
+    max-width: 65%;
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.user {
+    background: #c4122f;
+    color: white;
+    margin-left: auto;
+}
+
+.bot {
+    background: #e9ecef;
+}
+
+/* NOME VERMELHO */
+.nome {
+    color: #c4122f;
+    font-weight: bold;
+}
+
+/* INPUT AREA */
+.input-area {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+
+.input-box {
+    display: flex;
+    width: 100%;
+    max-width: 700px;
+    background: #f1f3f5;
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px;
+    outline: none;
+}
+
+/* BOTÃO AVIÃO */
+.send-btn {
+    background: #c4122f;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.send-btn:hover {
+    background: #a10f27;
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    🤖 SENAI-GPT
+</div>
+
+<div class="home" id="home">
+    <h1>SENAI-GPT</h1>
+    <p>Digite uma pergunta para começar</p>
+</div>
+
+<div class="chat" id="chat">
+    <div class="chat-box" id="chatBox"></div>
+</div>
+
+<div class="input-area">
+    <div class="input-box">
+        <input type="text" id="input" placeholder="Pergunte algo..." onkeypress="if(event.key==='Enter') enviar()">
+        <button onclick="enviar()" class="send-btn">✈️</button>
+    </div>
+</div>
+
+<script>
+const home = document.getElementById("home");
+const chat = document.getElementById("chat");
+const chatBox = document.getElementById("chatBox");
+
+function respostaIA(texto) {
+    texto = texto.toLowerCase();
+
+    if (texto.includes("oi")) return "Olá! Eu sou o SENAI-GPT.";
+    if (texto.includes("nome")) return "Meu nome é SENAI-GPT.";
+    if (texto.includes("ajuda")) return "Claro! Estou aqui para ajudar você.";
+
+    return "Ainda estou em desenvolvimento 😉";
+}
+
+/* NOVA FUNÇÃO COM NOME SEPARADO */
+function addMsg(texto, tipo) {
+    const div = document.createElement("div");
+    div.className = "msg " + tipo;
+
+    const nome = document.createElement("strong");
+    nome.className = "nome";
+    
+    const mensagem = document.createElement("span");
+
+    if (tipo === "user") {
+        nome.innerText = "Você: ";
+    } else {
+        nome.innerText = "SENAI-GPT: ";
+    }
+
+    mensagem.innerText = texto;
+
+    div.appendChild(nome);
+    div.appendChild(mensagem);
+
+    chatBox.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function enviar() {
+    const input = document.getElementById("input");
+    const texto = input.value;
+
+    if (texto.trim() === "") return;
+
+    if (home.style.display !== "none") {
+        home.style.display = "none";
+        chat.style.display = "flex";
+    }
+
+    addMsg(texto, "user");
+    input.value = "";
+
+    setTimeout(() => {
+        const resp = respostaIA(texto);
+        addMsg(resp, "bot");
+    }, 300);
+}
+</script>
+
+</body>
+</html>tml>html>
+
+
